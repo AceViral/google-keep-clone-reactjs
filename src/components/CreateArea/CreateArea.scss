@@ -7,15 +7,20 @@ form {
    border-radius: 7px;
    box-shadow: 0 1px 7px rgb(128, 128, 128);
    input {
+      font-family: monospace;
+      font-size: 1.3rem;
+      font-weight: 600;
       width: 90%;
       border: none;
       padding: 4px 10px;
       margin: 20px auto;
       outline: none;
-      font-size: 1rem;
       resize: none;
    }
    textarea {
+      font-family: monospace;
+      font-size: 1rem;
+      color: #6f212b;
       width: 90%;
       border: none;
       padding: 4px 10px;
