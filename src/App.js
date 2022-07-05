@@ -6,11 +6,16 @@ import Count from "./components/Count";
 import CreateArea from "./components/CreateArea";
 function App() {
    const [notes, setNotes] = useState([]);
+
+   const getNotes = async () => {
+      await axios.get("http://localhost:8080/notes").then((res) => {
+         setNotes(res.data);
+      });
+   };
+
    useEffect(() => {
       try {
-         axios.get("http://localhost:8080/notes").then((res) => {
-            setNotes(res.data);
-         });
+         getNotes();
       } catch (error) {
          console.log(error, "Ошибка при загрузке данных");
       }
@@ -18,22 +23,42 @@ function App() {
 
    const deleteNote = (id) => {
       try {
-         axios.delete(`http://localhost:8080/notes/${id}`);
-         setNotes(
-            notes.filter((note) => {
-               return note.id !== id;
-            })
-         );
+         const fetchData = async () => {
+            await axios.delete(`http://localhost:8080/notes/${id}`);
+            setNotes(
+               notes.filter((note) => {
+                  return note.id !== id;
+               })
+            );
+         };
+         fetchData();
       } catch (error) {
          console.log(error, "Ошибка при удалении");
       }
    };
    const changeNote = (id, newTitle, newText) => {
       try {
-         axios.patch(`http://localhost:8080/notes/${id}`, {
-            title: newTitle,
-            text: newText,
-         });
+         const fetchData = async () => {
+            await axios.patch(`http://localhost:8080/notes/${id}`, {
+               title: newTitle,
+               text: newText,
+            });
+         };
+         fetchData();
+      } catch (error) {
+         console.log(error, "Ошибка при изменении");
+      }
+   };
+   const addNote = (title = "", text = "") => {
+      try {
+         const fetchData = async () => {
+            axios.post(`http://localhost:8080/notes`, {
+               title: title,
+               text: text,
+            });
+         };
+         fetchData();
+         getNotes();
       } catch (error) {
          console.log(error, "Ошибка при изменении");
       }
@@ -52,19 +77,7 @@ function App() {
          )
       );
    };
-   const addNote = (title = "", text = "") => {
-      try {
-         axios.post(`http://localhost:8080/notes`, {
-            title: title,
-            text: text,
-         });
-         axios.get("http://localhost:8080/notes").then((res) => {
-            setNotes(res.data);
-         });
-      } catch (error) {
-         console.log(error, "Ошибка при изменении");
-      }
-   };
+
    return (
       <div className="App">
          <Header />
@@ -78,6 +91,7 @@ function App() {
          <CreateArea addNote={addNote} />
          {notes.map((note) => (
             <Note
+               key={note.id}
                title={note.title}
                text={note.text}
                id={note.id}
