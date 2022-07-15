@@ -35,7 +35,7 @@ const Note = ({
                   <textarea
                      value={text}
                      onChange={(e) => handleChangeText(id, e)}
-                     placeholder={title ? "" : "Take a note..."}
+                     placeholder={text ? "" : "Take a note..."}
                      rows={
                         Math.floor(text.length / 27) === 0
                            ? 1

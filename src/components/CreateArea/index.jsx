@@ -29,6 +29,7 @@ function CreateArea({ addNote }) {
          text: "",
       });
       event.preventDefault();
+      setExpanded(false);
    }
 
    return (
@@ -38,7 +39,7 @@ function CreateArea({ addNote }) {
                <input
                   value={note.title}
                   type="text"
-                  placeholder="Title"
+                  placeholder="Take a title..."
                   name="title"
                   onChange={handleChange}
                />
@@ -56,6 +57,15 @@ function CreateArea({ addNote }) {
             <button
                onClick={submitButton}
                disabled={note.text === "" && note.title === "" ? true : false}
+               style={
+                  note.text === "" && note.title === ""
+                     ? {
+                          background: "#808080",
+                          cursor: "auto",
+                          transform: "rotate(45deg)",
+                       }
+                     : { background: "#ffc812", cursor: "pointer" }
+               }
             >
                <box-icon name="plus"></box-icon>
             </button>

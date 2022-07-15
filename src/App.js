@@ -6,13 +6,20 @@ import Count from "./components/Count";
 import CreateArea from "./components/CreateArea";
 function App() {
    const [notes, setNotes] = useState([]);
-
+   const hostUrl = "http://localhost:8080/";
    const getNotes = async () => {
-      await axios.get("http://localhost:8080/notes").then((res) => {
+      await axios.get(hostUrl + "notes").then((res) => {
          setNotes(res.data);
       });
    };
-
+   const deleteNoteFunction = async (id) => {
+      await axios.delete(hostUrl + `notes/${id}`);
+      setNotes(
+         notes.filter((note) => {
+            return note.id !== id;
+         })
+      );
+   };
    useEffect(() => {
       try {
          getNotes();
@@ -23,28 +30,24 @@ function App() {
 
    const deleteNote = (id) => {
       try {
-         const fetchData = async () => {
-            await axios.delete(`http://localhost:8080/notes/${id}`);
-            setNotes(
-               notes.filter((note) => {
-                  return note.id !== id;
-               })
-            );
-         };
-         fetchData();
+         deleteNoteFunction(id);
       } catch (error) {
          console.log(error, "Ошибка при удалении");
       }
    };
    const changeNote = (id, newTitle, newText) => {
       try {
-         const fetchData = async () => {
-            await axios.patch(`http://localhost:8080/notes/${id}`, {
-               title: newTitle,
-               text: newText,
-            });
-         };
-         fetchData();
+         if (newTitle === "" && newText === "") {
+            deleteNoteFunction(id);
+         } else {
+            const fetchData = async () => {
+               await axios.patch(hostUrl + `notes/${id}`, {
+                  title: newTitle,
+                  text: newText,
+               });
+            };
+            fetchData();
+         }
       } catch (error) {
          console.log(error, "Ошибка при изменении");
       }
@@ -52,7 +55,7 @@ function App() {
    const addNote = (title = "", text = "") => {
       try {
          const fetchData = async () => {
-            axios.post(`http://localhost:8080/notes`, {
+            axios.post(hostUrl + `notes`, {
                title: title,
                text: text,
             });
