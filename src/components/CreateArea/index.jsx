@@ -32,9 +32,23 @@ function CreateArea({ addNote }) {
       setExpanded(false);
    }
 
+   const showFile = async (e) => {
+      e.preventDefault();
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+         const text = e.target.result;
+         setNote({
+            title: "",
+            text: text,
+         });
+         setExpanded(true);
+      };
+      reader.readAsText(e.target.files[0]);
+   };
+
    return (
       <div>
-         <form>
+         <form className="createAreaForm">
             {isExpanded && (
                <input
                   value={note.title}
@@ -51,9 +65,15 @@ function CreateArea({ addNote }) {
                   name="text"
                   placeholder="Take a note..."
                   onChange={handleChange}
-                  rows={isExpanded ? 3 : 1}
-               ></textarea>
+                  rows={isExpanded ? 4 : 1}
+               />
             </p>
+            <div className="inputWrapper">
+               <input type="file" id="inputFile" onChange={showFile} />
+               <label htmlFor="inputFile">
+                  <i className="bx bx-pin"></i>
+               </label>
+            </div>
             <button
                onClick={submitButton}
                disabled={note.text === "" && note.title === "" ? true : false}
@@ -64,10 +84,11 @@ function CreateArea({ addNote }) {
                           cursor: "auto",
                           transform: "rotate(45deg)",
                        }
-                     : { background: "#ffc812", cursor: "pointer" }
+                     : { background: "#febeb0", cursor: "pointer" }
                }
+               className="plusBtn"
             >
-               <box-icon name="plus"></box-icon>
+               <i className="bx bx-plus"></i>
             </button>
          </form>
       </div>

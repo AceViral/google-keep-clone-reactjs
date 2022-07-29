@@ -1,12 +1,14 @@
-form {
+.createAreaForm {
    position: relative;
    width: 600px;
    margin: 32px auto 50px auto;
-   background: #fff;
+   background: #f7f1ed;
    padding: 7px;
    border-radius: 7px;
    box-shadow: 0 1px 7px rgb(128, 128, 128);
    input {
+      background: #f7f1ed;
+      color: #2f365f;
       font-family: monospace;
       font-size: 1.2rem;
       font-weight: 600;
@@ -18,9 +20,10 @@ form {
       resize: none;
    }
    textarea {
+      background: #f7f1ed;
+      color: #2f365f;
       font-family: monospace;
       font-size: 1rem;
-      color: #6f212b;
       width: 90%;
       border: none;
       padding: 4px 10px;
@@ -28,7 +31,7 @@ form {
       font-size: 1rem;
       resize: none;
    }
-   button {
+   .plusBtn {
       position: absolute;
       display: flex;
       justify-content: center;
@@ -43,5 +46,36 @@ form {
       box-shadow: 0 1px 3px rgb(165, 165, 165);
       outline: none;
       transition: all 0.2s ease-in-out;
+      i {
+         color: #000;
+         font-size: 25px;
+      }
+   }
+   .inputWrapper {
+      position: absolute;
+      right: 68px;
+      bottom: -18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      label {
+         cursor: pointer;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         border-radius: 50%;
+         background: #febeb0;
+         width: 36px;
+         height: 36px;
+         i {
+            font-size: 25px;
+         }
+      }
+      input {
+         opacity: 0;
+         visibility: hidden;
+         position: absolute;
+      }
    }
 }

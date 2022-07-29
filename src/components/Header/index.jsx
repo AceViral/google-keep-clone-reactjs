@@ -1,16 +1,11 @@
 import React from "react";
 import "./Header.scss";
+import "boxicons";
 function Header() {
-   const logo = (
-      <img
-         src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png"
-         alt="logo"
-      />
-   );
    return (
       <div className="header">
-         {logo}
-         <h1>Keep</h1>
+         <i className="bx bx-cheese"></i>
+         <h1>MyCheese</h1>
       </div>
    );
 }

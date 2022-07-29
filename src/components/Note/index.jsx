@@ -19,6 +19,9 @@ const Note = ({
       <div className="note">
          {editMode ? (
             <>
+               <div className="editTag">
+                  <p>Edit mode</p>
+               </div>
                <div className="titleWrap">
                   <textarea
                      value={title}
@@ -54,17 +57,15 @@ const Note = ({
                </div>
             </>
          )}
-
          <div className="buttonBlock">
             <button onClick={() => deleteNote(id)}>
-               <box-icon name="trash"></box-icon>
+               <i className="bx bx-trash-alt"></i>
             </button>
             <button onClick={() => modificate()}>
-               <box-icon
-                  name="edit"
-                  type="solid"
-                  color={editMode ? "#ffc812" : "#000"}
-               ></box-icon>
+               <i
+                  className="bx bx-edit-alt"
+                  style={{ color: editMode ? "#febeb0" : "none" }}
+               ></i>
             </button>
          </div>
       </div>
